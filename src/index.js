@@ -69,6 +69,13 @@ g.append('g').call(d3.axisBottom(x)  .tickFormat(d => d)
   .select('.domain')
   .remove()
   
+// rectangle par dessus le graph qui reconnaît la position de la souris
+const rect = g
+  .append('rect')
+  .style("fill", "none")
+  .style("pointer-events", "all")
+  .attr('width', innerWidth)
+  .attr('height', innerHeight);
 
 
 //-----------------------legends-----------------------//
@@ -142,6 +149,11 @@ run.on('click', () => {
     .attr("fill", "white")
     .attr("class", "year");
 
+    rect
+    .on('mouseover', mouseover)
+    .on('mousemove', mousemove)
+    .on('mouseout', mouseout);
+
 });
 
 //-----------------------hover-----------------------//
@@ -194,16 +206,7 @@ var showYear = g
   .attr("fill", "white")
   .attr("class", "year");
 
-// rectangle par dessus le graph qui reconnaît la position de la souris
-g
-  .append('rect')
-  .style("fill", "none")
-  .style("pointer-events", "all")
-  .attr('width', innerWidth)
-  .attr('height', innerHeight)
-  .on('mouseover', mouseover)
-  .on('mousemove', mousemove)
-  .on('mouseout', mouseout);
+
 
 // apparition des éléments lors du mouseover
 function mouseover() {
