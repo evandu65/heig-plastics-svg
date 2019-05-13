@@ -1,9 +1,10 @@
-* {
+html {
     color: white;
+    background-color: #363636;
 }
 
 text {
-    font-size: 0.8rem;
+    font-size: 1rem;
     font-family: sans-serif;
     color: white;
 }
@@ -11,4 +12,9 @@ text {
 .year {
     font-size: 1.3rem;
     color: white;
+}
+
+legend {
+    font-size: 0.5rem;
+    font-family: sans-serif;
 }

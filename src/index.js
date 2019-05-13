@@ -3,11 +3,12 @@ import 'css/style.css';
 // constantes
 const d3 = require('d3');
 
+const p = d3.select("p");
 const svg = d3.select("svg");
 const WIDTH = +svg.attr('width');
 const HEIGHT = +svg.attr('height');
 
-const margin = { top: 100, right: 350, bottom: 50, left: 100 };
+const margin = { top: 50, right: 300, bottom: 50, left: 100 };
 const innerWidth = WIDTH - margin.left - margin.right;
 const innerHeight = HEIGHT - margin.top - margin.bottom;
 
@@ -20,6 +21,14 @@ const g = svg.append('g')
 
 const lineColor = 'lightblue';
 const lineColor1 = 'violet';
+
+//-----------------------message-----------------------//
+var message = p
+  .append('g')
+  .html("En 2015, 7.8 milliards de tonnes de plastique avait été produit, <strong>soit plus d'une tonne de plastique pour chaque personne vivante. </strong>")
+  // .attr('x', innerWidth / 2)
+  // .attr('y', -10)
+  .style("opacity", 0)
 
 //-----------------------axis-----------------------//
 // échelle pour l'axe X
@@ -54,15 +63,30 @@ g.append('g').call(d3.axisLeft(y)
 
 
 // axe X
-g.append('g').call(d3.axisBottom(x))
+g.append('g').call(d3.axisBottom(x)  .tickFormat(d => d)
+)
   .attr('transform', `translate(0, ${innerHeight + 20})`)
   .select('.domain')
-  .remove();
+  .remove()
+  
 
 
 //-----------------------legends-----------------------//
+var legend = g
+  .append('text')
+  .text('Population mondiale')
+  .attr('fill', lineColor)
+  .attr('x', 15)
+  .attr('y', -10)
+  .attr("class", "legend");
 
-
+  var legend1 = g
+  .append('text')
+  .text('Production cumulée de plastique (en tonnes)')
+  .attr('fill', lineColor1)
+  .attr('x', 15)
+  .attr('y', 10)
+  .attr("class", "legend");
 
 //-----------------------au clic-----------------------//
 
@@ -107,6 +131,17 @@ run.on('click', () => {
     .duration(4000)
     .ease(d3.easeLinear)
     .attr("stroke-dashoffset", 0);
+
+  //apparition du message
+  message
+    .transition()
+    .delay(4500)
+    .duration(1000)
+    .style("opacity", 1)
+    .style("class", "year")
+    .attr("fill", "white")
+    .attr("class", "year");
+
 });
 
 //-----------------------hover-----------------------//
@@ -197,7 +232,7 @@ function mousemove() {
     .attr("cx", x(selectedData1.year))
     .attr("cy", y(selectedData1.tonnes))
   focusText1
-    .html("Production cumulée de plastique: " + (Math.round((selectedData1.tonnes / 1000000000) * 100) / 100) + " milliards de tonnes")
+    .html("Plastique: " + (Math.round((selectedData1.tonnes / 1000000000) * 100) / 100) + " milliards de tonnes")
     .attr("x", x(selectedData1.year) + 15)
     .attr("y", y(selectedData1.tonnes))
   showYear
