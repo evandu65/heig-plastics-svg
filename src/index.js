@@ -59,6 +59,11 @@ g.append('g').call(d3.axisBottom(x))
   .select('.domain')
   .remove();
 
+
+//-----------------------legends-----------------------//
+
+
+
 //-----------------------au clic-----------------------//
 
 const run = d3.select("button")
@@ -70,14 +75,16 @@ run.on('click', () => {
     .attr("class", "line")
     .attr('d', linePathCreator(DATA))
     .attr('fill', 'none')
-    .attr('stroke', lineColor);
+    .attr('stroke', lineColor)
+    .style("stroke-width", 2);
 
   // ajouter la deuxième courbe au svg
   const line1 = g.append('path')
     .attr("class", "line")
     .attr('d', linePathCreator1(DATA1))
     .attr('fill', 'none')
-    .attr('stroke', lineColor1);
+    .attr('stroke', lineColor1)
+    .style("stroke-width", 2);
 
   //-----------------------transition-----------------------//
 
@@ -115,6 +122,7 @@ var focus = g
   .attr("stroke", lineColor)
   .attr('r', 8.5)
   .style("opacity", 0)
+  .style("stroke-width", 2);
 
 var focus1 = g
   .append('g')
@@ -123,6 +131,7 @@ var focus1 = g
   .attr("stroke", lineColor1)
   .attr('r', 8.5)
   .style("opacity", 0)
+  .style("stroke-width", 2);
 
 var focusText = g
   .append('g')
