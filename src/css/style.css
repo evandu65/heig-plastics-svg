@@ -1,0 +1,14 @@
+* {
+    color: white;
+}
+
+text {
+    font-size: 0.8rem;
+    font-family: sans-serif;
+    color: white;
+}
+
+.year {
+    font-size: 1.3rem;
+    color: white;
+}
